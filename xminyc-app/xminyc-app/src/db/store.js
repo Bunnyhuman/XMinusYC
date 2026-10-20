@@ -203,6 +203,9 @@ const store = {
       db.prepare(`INSERT INTO users (username, email, password_hash, is_admin, email_verified, bio, socials, created_at)
         VALUES (?, ?, ?, 1, 1, 'Администратор сайта', ?, ?)`).run(cfg.ADMIN_USERNAME, null, bcrypt.hashSync(pass, 10), JSON.stringify(EMPTY_SOCIALS()), now());
       log.push(`Создан администратор: ${cfg.ADMIN_USERNAME} / ${pass}  (запишите пароль — он больше не будет показан)`);
+    } else if (!adminRow.password_hash && cfg.ADMIN_PASSWORD) {
+      this.setPassword(adminRow.id, cfg.ADMIN_PASSWORD);
+      log.push(`Администратору «${adminRow.username}» задан пароль из ADMIN_PASSWORD`);
     } else if (adminRow.password_hash && bcrypt.compareSync('admin123', adminRow.password_hash)) {
       // старый небезопасный пароль по умолчанию — заменяем
       const pass = newPass();
