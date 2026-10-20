@@ -1,0 +1,17 @@
+node_modules/
+.env
+env.env
+smtp.json
+data/
+storage/audio/*
+storage/tmp/*
+!storage/audio/.gitkeep
+!storage/tmp/.gitkeep
+public/covers/*
+public/avatars/*
+public/artists/*
+public/uploads/*
+!public/covers/.gitkeep
+!public/avatars/.gitkeep
+!public/artists/.gitkeep
+*.log
